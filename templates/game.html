@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cờ Caro Pro</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="main-wrapper">
+      <a href="/" class="btn-back-home"
+        ><i class="fas fa-arrow-left"></i> Trang chủ</a
+      >
+
+      <header>
+        <h1>CỜ <span class="highlight">CARO</span></h1>
+      </header>
+
+      <div class="game-container">
+        <div class="status-bar">
+          <div class="player-card" id="p1-card">
+            <div class="avatar p1">X</div>
+            <div class="info">
+              <div class="name">Bạn (X)</div>
+              <div id="timerP1" class="timer">03:00</div>
+            </div>
+          </div>
+
+          <div class="turn-indicator">
+            <span id="turnInfo">Sẵn sàng!</span>
+            <div class="move-badge">Nước đi: <span id="moveCount">0</span></div>
+          </div>
+
+          <div class="player-card" id="p2-card">
+            <div class="info" style="text-align: right">
+              <div class="name" id="player2Title">AI (O)</div>
+              <div id="timerP2" class="timer">04:00</div>
+            </div>
+            <div class="avatar p2">O</div>
+          </div>
+        </div>
+
+        <div class="board-wrapper">
+          <canvas id="board" width="456" height="456"></canvas>
+        </div>
+
+        <div class="controls-bar">
+          <div class="select-wrapper">
+            <i class="fas fa-palette"></i>
+            <select id="themeSelect">
+              <option value="wood">Gỗ (Cổ điển)</option>
+              <option value="paper">Giấy (Trắng/Đen)</option>
+              <option value="dark">Bóng đêm (Dark)</option>
+            </select>
+          </div>
+
+          <button onclick="resetGame()" class="btn-reset">
+            <i class="fas fa-redo"></i> Ván mới
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      window.BOARD_SIZE = 12; // Đảm bảo biến này khớp với Python
+      window.CELL_SIZE = 38;
+    </script>
+
+    <div id="resultModal" class="modal-overlay">
+      <div class="modal-content">
+        <h2 id="modalTitle">Kết Quả</h2>
+        <p id="modalMessage">Nội dung thông báo...</p>
+        <button onclick="closeModalAndReset()" class="btn-modal">
+          Chơi lại ngay
+        </button>
+      </div>
+
+      <audio
+        id="sound-move"
+        src="{{ url_for('static', filename='sounds/move.mp3') }}"
+      ></audio>
+      <audio
+        id="sound-win"
+        src="{{ url_for('static', filename='sounds/win.mp3') }}"
+      ></audio>
+      <audio
+        id="sound-lose"
+        src="{{ url_for('static', filename='sounds/lose.mp3') }}"
+      ></audio>
+      <audio
+        id="sound-click"
+        src="{{ url_for('static', filename='sounds/click.mp3') }}"
+      ></audio>
+
+      <script src="{{ url_for('static', filename='script.js') }}"></script>
+    </div>
+  </body>
+</html>

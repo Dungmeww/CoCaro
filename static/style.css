@@ -1,0 +1,1070 @@
+﻿/* style.css */
+
+/* --- 1. Biến toàn cục (Dễ dàng thay đổi chủ đề) --- */
+:root {
+    --bg-gradient-start: #0f0c29;
+    --bg-gradient-middle: #302b63;
+    --bg-gradient-end: #24243e;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --text-primary: #ffffff;
+    --text-secondary: #d1d1d1;
+    --accent-color: #00dbde;
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* --- 2. Cài đặt chung & Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient( to right, var(--bg-gradient-start), var(--bg-gradient-middle), var(--bg-gradient-end) );
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+    /* Thêm hiệu ứng nền động */
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+        opacity: 0.05;
+        z-index: -1;
+    }
+
+
+/* --- 3. Bố cục chính --- */
+.home-wrapper {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Cho Safari */
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    padding: 40px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    text-align: center;
+}
+
+/* --- 4. Tiêu đề --- */
+.home-header {
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(0, 219, 222, 0.5);
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.highlight {
+    background: linear-gradient( to right, #00dbde, #fc00ff );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+/* --- 5. Menu --- */
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.menu-group h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+    .menu-group h3 i {
+        color: var(--accent-color);
+    }
+
+.btn-menu {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Hiệu ứng hover cho các nút */
+    .btn-menu:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    /* Màu sắc cho từng nút */
+    .btn-menu.easy {
+        background-color: #4CAF50;
+    }
+
+    .btn-menu.medium {
+        background-color: #ff9800;
+    }
+
+    .btn-menu.hard {
+        background-color: #f44336;
+    }
+
+    .btn-menu.pvp {
+        background-color: #9c27b0;
+    }
+
+    /* Mô tả nhỏ bên trong nút PvP */
+    .btn-menu small {
+        display: block;
+        font-weight: 400;
+        font-size: 0.8em;
+        opacity: 0.9;
+        margin-top: 5px;
+    }
+
+/* --- 6. Dòng kẻ phân cách --- */
+.menu-divider {
+    text-align: center;
+    position: relative;
+    margin: 20px 0;
+    color: var(--text-secondary);
+}
+
+    .menu-divider::before,
+    .menu-divider::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background: var(--glass-border);
+    }
+
+    .menu-divider::before {
+        left: 0;
+    }
+
+    .menu-divider::after {
+        right: 0;
+    }
+
+/* --- 7. Chân trang --- */
+.home-footer {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* --- 8. Hiệu ứng di chuột vào icon */
+.fa-robot:hover, .fa-user-friends:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* --- 9. Responsive cho màn hình nhỏ --- */
+@media (max-width: 600px) {
+    .glass-panel {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .logo-icon {
+        font-size: 3rem;
+    }
+
+    .home-wrapper {
+        max-width: 100%;
+    }
+}
+/* --- GIAO DIỆN TRANG CHƠI GAME --- */
+
+/* Bố cục chính */
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient( to right, var(--bg-gradient-start), var(--bg-gradient-middle), var(--bg-gradient-end) );
+}
+
+/* Nút quay về trang chủ */
+.btn-back-home {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+    .btn-back-home:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateX(-5px);
+    }
+
+/* Tiêu đề game */
+header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+    header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+    }
+
+/* Khung chứa toàn bộ game */
+.game-container {
+    width: 100%;
+    max-width: 700px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Thanh trạng thái người chơi */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.player-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .player-card.active {
+        background: rgba(0, 219, 222, 0.1);
+        border-color: var(--accent-color);
+        box-shadow: 0 0 15px rgba(0, 219, 222, 0.3);
+    }
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: white;
+}
+
+    .avatar.p1 {
+        background-color: #4CAF50;
+    }
+
+    .avatar.p2 {
+        background-color: #f44336;
+    }
+
+.info .name {
+    font-weight: 600;
+}
+
+.timer {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.turn-indicator {
+    text-align: center;
+}
+
+#turnInfo {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.move-badge {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Bảng game */
+.board-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#board {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background-color: #f0d9b5; /* Màu gỗ mặc định */
+}
+
+/* Thanh điều khiển */
+.controls-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+    .select-wrapper i {
+        color: var(--accent-color);
+    }
+
+    .select-wrapper select {
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-family: var(--font-family);
+        font-weight: 600;
+        outline: none;
+        cursor: pointer;
+    }
+
+        .select-wrapper select option {
+            background-color: var(--bg-gradient-middle);
+            color: var(--text-primary);
+        }
+
+.btn-reset {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--accent-color);
+    color: var(--bg-gradient-start);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .btn-reset:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px 0 rgba(0, 219, 222, 0.4);
+    }
+
+/* Modal kết quả */
+.modal-overlay {
+    display: none; /* Ẩn theo mặc định */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+    .modal-content h2 {
+        margin-bottom: 15px;
+        font-size: 2rem;
+    }
+
+    .modal-content p {
+        margin-bottom: 25px;
+        color: var(--text-secondary);
+    }
+
+.btn-modal {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient( to right, #00dbde, #fc00ff );
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .btn-modal:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px 0 rgba(252, 0, 255, 0.4);
+    }
+
+/* --- Responsive cho trang game --- */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 15px;
+    }
+
+    .status-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .player-card {
+        width: 100%;
+        justify-content: center;
+    }
+
+        .player-card .info {
+            text-align: center !important;
+        }
+
+    .controls-bar {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 500px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    #board {
+        width: 100%;
+        height: auto;
+        max-width: 380px; /* Giới hạn kích thước trên màn hình nhỏ */
+    }
+}
+/* style.css */
+
+/* --- 1. Biến toàn cục (Dễ dàng thay đổi chủ đề) --- */
+:root {
+    --bg-gradient-start: #0f0c29;
+    --bg-gradient-middle: #302b63;
+    --bg-gradient-end: #24243e;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.18);
+    --text-primary: #ffffff;
+    --text-secondary: #d1d1d1;
+    --accent-color: #00dbde;
+    --font-family: 'Poppins', sans-serif;
+}
+
+/* --- 2. Cài đặt chung & Reset --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background: linear-gradient( to right, var(--bg-gradient-start), var(--bg-gradient-middle), var(--bg-gradient-end) );
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+    /* Thêm hiệu ứng nền động */
+    body::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://www.transparenttextures.com/patterns/stardust.png') repeat;
+        opacity: 0.05;
+        z-index: -1;
+    }
+
+
+/* --- 3. Bố cục chính --- */
+.home-wrapper {
+    width: 100%;
+    max-width: 450px;
+    padding: 20px;
+}
+
+.glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Cho Safari */
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    padding: 40px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    text-align: center;
+}
+
+/* --- 4. Tiêu đề --- */
+.home-header {
+    margin-bottom: 40px;
+}
+
+.logo-icon {
+    font-size: 4rem;
+    color: var(--accent-color);
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px rgba(0, 219, 222, 0.5);
+}
+
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.highlight {
+    background: linear-gradient( to right, #00dbde, #fc00ff );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+/* --- 5. Menu --- */
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.menu-group h3 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+    .menu-group h3 i {
+        color: var(--accent-color);
+    }
+
+.btn-menu {
+    display: block;
+    width: 100%;
+    padding: 15px 20px;
+    margin-bottom: 10px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+    /* Hiệu ứng hover cho các nút */
+    .btn-menu:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.4);
+    }
+
+    /* Màu sắc cho từng nút */
+    .btn-menu.easy {
+        background-color: #4CAF50;
+    }
+
+    .btn-menu.medium {
+        background-color: #ff9800;
+    }
+
+    .btn-menu.hard {
+        background-color: #f44336;
+    }
+
+    .btn-menu.pvp {
+        background-color: #9c27b0;
+    }
+
+    /* Mô tả nhỏ bên trong nút PvP */
+    .btn-menu small {
+        display: block;
+        font-weight: 400;
+        font-size: 0.8em;
+        opacity: 0.9;
+        margin-top: 5px;
+    }
+
+/* --- 6. Dòng kẻ phân cách --- */
+.menu-divider {
+    text-align: center;
+    position: relative;
+    margin: 20px 0;
+    color: var(--text-secondary);
+}
+
+    .menu-divider::before,
+    .menu-divider::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 40%;
+        height: 1px;
+        background: var(--glass-border);
+    }
+
+    .menu-divider::before {
+        left: 0;
+    }
+
+    .menu-divider::after {
+        right: 0;
+    }
+
+/* --- 7. Chân trang --- */
+.home-footer {
+    margin-top: 40px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* --- 8. Hiệu ứng di chuột vào icon */
+.fa-robot:hover, .fa-user-friends:hover {
+    transform: scale(1.2);
+    transition: transform 0.2s ease-in-out;
+}
+
+/* --- 9. Responsive cho màn hình nhỏ --- */
+@media (max-width: 600px) {
+    .glass-panel {
+        padding: 30px 20px;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    .logo-icon {
+        font-size: 3rem;
+    }
+
+    .home-wrapper {
+        max-width: 100%;
+    }
+}
+/* --- GIAO DIỆN TRANG CHƠI GAME --- */
+
+/* Bố cục chính */
+.main-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    background: linear-gradient( to right, var(--bg-gradient-start), var(--bg-gradient-middle), var(--bg-gradient-end) );
+}
+
+/* Nút quay về trang chủ */
+.btn-back-home {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+    .btn-back-home:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        transform: translateX(-5px);
+    }
+
+/* Tiêu đề game */
+header {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+    header h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+    }
+
+/* Khung chứa toàn bộ game */
+.game-container {
+    width: 100%;
+    max-width: 700px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Thanh trạng thái người chơi */
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px;
+}
+
+.player-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+    .player-card.active {
+        background: rgba(0, 219, 222, 0.1);
+        border-color: var(--accent-color);
+        box-shadow: 0 0 15px rgba(0, 219, 222, 0.3);
+    }
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: white;
+}
+
+    .avatar.p1 {
+        background-color: #4CAF50;
+    }
+
+    .avatar.p2 {
+        background-color: #f44336;
+    }
+
+.info .name {
+    font-weight: 600;
+}
+
+.timer {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.turn-indicator {
+    text-align: center;
+}
+
+#turnInfo {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.move-badge {
+    margin-top: 5px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* Bảng game */
+.board-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+#board {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    background-color: #f0d9b5; /* Màu gỗ mặc định */
+}
+
+/* Thanh điều khiển */
+.controls-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.select-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 15px;
+    border-radius: 10px;
+}
+
+    .select-wrapper i {
+        color: var(--accent-color);
+    }
+
+    .select-wrapper select {
+        background: none;
+        border: none;
+        color: var(--text-primary);
+        font-family: var(--font-family);
+        font-weight: 600;
+        outline: none;
+        cursor: pointer;
+    }
+
+        .select-wrapper select option {
+            background-color: var(--bg-gradient-middle);
+            color: var(--text-primary);
+        }
+
+.btn-reset {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--accent-color);
+    color: var(--bg-gradient-start);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .btn-reset:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px 0 rgba(0, 219, 222, 0.4);
+    }
+
+/* Modal kết quả */
+.modal-overlay {
+    display: none; /* Ẩn theo mặc định */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid var(--glass-border);
+    padding: 40px;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+    .modal-content h2 {
+        margin-bottom: 15px;
+        font-size: 2rem;
+    }
+
+    .modal-content p {
+        margin-bottom: 25px;
+        color: var(--text-secondary);
+    }
+
+.btn-modal {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient( to right, #00dbde, #fc00ff );
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+    .btn-modal:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 15px 0 rgba(252, 0, 255, 0.4);
+    }
+
+/* --- Responsive cho trang game --- */
+@media (max-width: 768px) {
+    .game-container {
+        padding: 15px;
+    }
+
+    .status-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .player-card {
+        width: 100%;
+        justify-content: center;
+    }
+
+        .player-card .info {
+            text-align: center !important;
+        }
+
+    .controls-bar {
+        justify-content: center;
+    }
+}
+
+@media (max-width: 500px) {
+    header h1 {
+        font-size: 2rem;
+    }
+
+    #board {
+        width: 100%;
+        height: auto;
+        max-width: 380px; /* Giới hạn kích thước trên màn hình nhỏ */
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+    .modal-overlay.show {
+        display: flex;
+        opacity: 1;
+    }
+
+.modal-content {
+    background: rgba(30, 30, 40, 0.9);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 30px 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    transform: scale(0.8);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+}
+
+.modal-content h2 {
+    color: #ffd700;
+    margin-bottom: 15px;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+
+.btn-modal {
+    background: linear-gradient(90deg, #ff4757, #ff6b81);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+}
