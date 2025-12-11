@@ -1,8 +1,8 @@
-// static/script.js - AI JS thuần mạnh mẽ cho GitHub Pages
+// static/script.js - FULL HOÀN CHỈNH CHO GITHUB PAGES
 const BOARD_SIZE = 12;
 const CELL_SIZE = 38;
 
-// Themes (giữ nguyên của nhóm bạn)
+// === THEMES ===
 const THEMES = {
   wood: { board: "#eecfa1", line: "#5e4026", p1: { color: "#000" }, p2: { color: "#fff", stroke: "#ddd" } },
   paper: { board: "#f8f9fa", line: "#2c3e50", p1: { color: "#2c3e50" }, p2: { color: "#ffffff", stroke: "#2c3e50" } },
@@ -15,12 +15,10 @@ let currentPlayer = 1;
 let gameMode = "easy";
 let gameOver = false;
 let moveCount = 0;
-
-// Timer
-let timeP1 = 3 * 60 * 1000; // 3 phút bạn
-let timeP2 = 4 * 60 * 1000; // 4 phút AI/PVP
-let timerInterval;
 let turnStartTime;
+let timerInterval;
+let timeP1 = 3 * 60 * 1000; // 3 phút
+let timeP2 = 4 * 60 * 1000; // 4 phút
 
 // Elements
 const canvas = document.getElementById("board");
@@ -37,17 +35,18 @@ const modalMsg = document.getElementById("modalMessage");
 
 // Init
 document.addEventListener("DOMContentLoaded", () => {
-  // Đọc mode từ URL
   const urlParams = new URLSearchParams(window.location.search);
-  gameMode = urlParams.get("mode") || "easy";
-  if (["easy", "medium", "hard", "pvp"].includes(gameMode)) {
-    if (player2Title) player2Title.textContent = gameMode === "pvp" ? "Người 2 (O)" : "AI (O)";
+  const mode = urlParams.get("mode");
+  if (mode && ["easy", "medium", "hard", "pvp"].includes(mode)) {
+    gameMode = mode;
   }
+  if (player2Title) player2Title.textContent = gameMode === "pvp" ? "Người 2 (O)" : "AI (O)";
 
   drawBoard();
   updateUIState();
   startTurnTimer();
 
+  themeSelect.value = currentTheme;
   themeSelect.addEventListener("change", () => {
     currentTheme = themeSelect.value;
     drawBoard();
@@ -75,7 +74,7 @@ function handleCanvasClick(e) {
     updateUIState();
     startTurnTimer();
     if (gameMode !== "pvp" && currentPlayer === 2) {
-      setTimeout(aiMove, 500);
+      setTimeout(aiMove, 600);
     }
   }
 }
@@ -92,12 +91,12 @@ function makeMove(row, col, player) {
     gameOver = true;
     clearInterval(timerInterval);
     const winner = player === 1 ? "Bạn" : (gameMode === "pvp" ? "Người 2" : "AI");
-    showResult(winner + " THẮNG! 🏆", "");
-    playSound(player === 1 ? "win" : "lose");
+    showResult(`${winner} THẮNG! 🏆`, "");
+    playSound(player === 1 ? "win" : "|lose");
   }
 }
 
-// AI Move - MẠNH NHẤT CÓ THỂ TRÊN BROWSER
+// AI Move
 function aiMove() {
   if (gameOver || currentPlayer !== 2) return;
 
@@ -107,9 +106,9 @@ function aiMove() {
   if (gameMode === "easy") {
     bestMove = getRandomMove();
   } else if (gameMode === "medium") {
-    bestMove = getMediumMove(); // Chặn thắng + random
+    bestMove = getMediumMove();
   } else if (gameMode === "hard") {
-    bestMove = getHardMove(); // Minimax alpha-beta depth động
+    bestMove = getHardMove();
   }
 
   if (bestMove) {
@@ -130,9 +129,9 @@ function getRandomMove() {
   return empty.length > 0 ? empty[Math.floor(Math.random() * empty.length)] : null;
 }
 
-// Medium: Ưu tiên chặn người chơi thắng, rồi tấn công, rồi random
+// Medium: Chặn + tấn công + random
 function getMediumMove() {
-  // Chặn người chơi thắng
+  // Chặn người chơi
   for (let r = 0; r < BOARD_SIZE; r++) {
     for (let c = 0; c < BOARD_SIZE; c++) {
       if (board[r][c] === 0) {
@@ -145,7 +144,7 @@ function getMediumMove() {
       }
     }
   }
-  // Tạo cơ hội thắng cho AI
+  // Tấn công
   for (let r = 0; r < BOARD_SIZE; r++) {
     for (let c = 0; c < BOARD_SIZE; c++) {
       if (board[r][c] === 0) {
@@ -161,12 +160,11 @@ function getMediumMove() {
   return getRandomMove();
 }
 
-// Hard: Minimax alpha-beta + heuristic mạnh
+// Hard: Minimax
 function getHardMove() {
-  let depth = 4; // Có thể tăng nếu muốn mạnh hơn (nhưng chậm)
+  let depth = 4;
   let bestScore = -Infinity;
   let bestMove = null;
-
   for (let r = 0; r < BOARD_SIZE; r++) {
     for (let c = 0; c < BOARD_SIZE; c++) {
       if (board[r][c] === 0) {
@@ -183,60 +181,46 @@ function getHardMove() {
   return bestMove;
 }
 
-function minimax(board, depth, alpha, beta, maximizingPlayer) {
+function minimax(board, depth, alpha, beta, maximizing) {
   if (depth === 0 || gameOver) return evaluateBoard(board);
 
-  if (maximizingPlayer) {
+  if (maximizing) {
     let maxEval = -Infinity;
-    for (let r = 0; r < BOARD_SIZE; r++) {
-      for (let c = 0; c < BOARD_SIZE; c++) {
-        if (board[r][c] === 0) {
-          board[r][c] = 2;
-          if (checkWin(r, c, 2)) return 100000;
-          let eval = minimax(board, depth - 1, alpha, beta, false);
-          board[r][c] = 0;
-          maxEval = Math.max(maxEval, eval);
-          alpha = Math.max(alpha, eval);
-          if (beta <= alpha) return maxEval;
-        }
-      }
+    for (let r = 0; r < BOARD_SIZE; r++) for (let c = 0; c < BOARD_SIZE; c++) if (board[r][c] === 0) {
+      board[r][c] = 2;
+      if (checkWin(r, c, 2)) return 100000;
+      let eval = minimax(board, depth - 1, alpha, beta, false);
+      board[r][c] = 0;
+      maxEval = Math.max(maxEval, eval);
+      alpha = Math.max(alpha, eval);
+      if (beta <= alpha) return maxEval;
     }
     return maxEval;
   } else {
     let minEval = Infinity;
-    for (let r = 0; r < BOARD_SIZE; r++) {
-      for (let c = 0; c < BOARD_SIZE; c++) {
-        if (board[r][c] === 0) {
-          board[r][c] = 1;
-          if (checkWin(r, c, 1)) return -100000;
-          let eval = minimax(board, depth - 1, alpha, beta, true);
-          board[r][c] = 0;
-          minEval = Math.min(minEval, eval);
-          beta = Math.min(beta, eval);
-          if (beta <= alpha) return minEval;
-        }
-      }
+    for (let r = 0; r < BOARD_SIZE; r++) for (let c = 0; c < BOARD_SIZE; c++) if (board[r][c] === 0) {
+      board[r][c] = 1;
+      if (checkWin(r, c, 1)) return -100000;
+      let eval = minimax(board, depth - 1, alpha, beta, true);
+      board[r][c] = 0;
+      minEval = Math.min(minEval, eval);
+      beta = Math.min(beta, eval);
+      if (beta <= alpha) return minEval;
     }
     return minEval;
   }
 }
 
-// Heuristic đánh giá bàn cờ (ưu tiên liên tiếp 4, 3, chặn, trung tâm)
 function evaluateBoard(board) {
   let score = 0;
-  // Ưu tiên trung tâm
   for (let r = 0; r < BOARD_SIZE; r++) for (let c = 0; c < BOARD_SIZE; c++) {
-    if (board[r][c] === 2) score += 10 * (1 / (Math.abs(r - 5.5) + Math.abs(c - 5.5) + 1));
-    if (board[r][c] === 1) score -= 10 * (1 / (Math.abs(r - 5.5) + Math.abs(c - 5.5) + 1));
+    if (board[r][c] === 2) score += 10;
+    if (board[r][c] === 1) score -= 10;
   }
-  // Đếm chuỗi (cơ bản)
-  // ... (có thể mở rộng thêm nếu muốn mạnh hơn)
   return score;
 }
 
-// checkWin, drawBoard, timer, sound, modal – copy từ code cũ của bạn vào đây nếu thiếu
-
-// Ví dụ checkWin (copy từ code bạn gửi)
+// checkWin
 function checkWin(row, col, player) {
   const dirs = [[1,0],[0,1],[1,1],[1,-1]];
   for (const [dr, dc] of dirs) {
@@ -258,6 +242,111 @@ function checkWin(row, col, player) {
   return false;
 }
 
-// ... thêm drawBoard, playSound, showResult, timer từ code cũ của nhóm bạn
+// drawBoard (đơn giản)
+function drawBoard() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const theme = THEMES[currentTheme];
+  ctx.fillStyle = theme.board;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = theme.line;
+  ctx.lineWidth = 1;
+  for (let i = 0; i < BOARD_SIZE; i++) {
+    ctx.beginPath();
+    ctx.moveTo(i * CELL_SIZE + CELL_SIZE / 2, CELL_SIZE / 2);
+    ctx.lineTo(i * CELL_SIZE + CELL_SIZE / 2, canvas.height - CELL_SIZE / 2);
+    ctx.moveTo(CELL_SIZE / 2, i * CELL_SIZE + CELL_SIZE / 2);
+    ctx.lineTo(canvas.width - CELL_SIZE / 2, i * CELL_SIZE + CELL_SIZE / 2);
+    ctx.stroke();
+  }
+  for (let r = 0; r < BOARD_SIZE; r++) {
+    for (let c = 0; c < BOARD_SIZE; c++) {
+      if (board[r][c] !== 0) {
+        const x = c * CELL_SIZE + CELL_SIZE / 2;
+        const y = r * CELL_SIZE + CELL_SIZE / 2;
+        ctx.beginPath();
+        ctx.arc(x, y, 15, 0, Math.PI * 2);
+        ctx.fillStyle = board[r][c] === 1 ? theme.p1.color : theme.p2.color;
+        ctx.fill();
+        if (theme.p2.stroke && board[r][c] === 2) {
+          ctx.strokeStyle = theme.p2.stroke;
+          ctx.lineWidth = 2;
+          ctx.stroke();
+        }
+      }
+    }
+  }
+}
 
-resetGame(); // Gọi khi cần
+// Timer
+function startTurnTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+  turnStartTime = Date.now();
+  timerInterval = setInterval(() => {
+    if (gameOver) return clearInterval(timerInterval);
+    const elapsed = Date.now() - turnStartTime;
+    if (currentPlayer === 1) timeP1 -= elapsed;
+    else timeP2 -= elapsed;
+    turnStartTime = Date.now();
+    updateTimers();
+    if (timeP1 <= 0 || timeP2 <= 0) {
+      gameOver = true;
+      clearInterval(timerInterval);
+      showResult("HẾT GIỜ!", currentPlayer === 1 ? "Bạn thua!" : "AI thua!");
+    }
+  }, 100);
+}
+
+function updateTimers() {
+  timerP1El.textContent = formatTime(timeP1);
+  timerP2El.textContent = formatTime(timeP2);
+}
+
+function formatTime(ms) {
+  const m = Math.floor(ms / 60000).toString().padStart(2, "0");
+  const s = Math.floor((ms % 60000) / 1000).toString().padStart(2, "0");
+  return `${m}:${s}`;
+}
+
+function updateUIState() {
+  turnInfoEl.textContent = currentPlayer === 1 ? "Lượt của bạn!" : (gameMode === "pvp" ? "Lượt người 2" : "AI đang tính...");
+}
+
+// Sound (nếu có file)
+function playSound(type) {
+  const audio = document.getElementById(`sound-${type}`);
+  if (audio) audio.play().catch(() => {});
+}
+
+// Modal
+function showResult(title, msg) {
+  modalTitle.textContent = title;
+  modalMsg.textContent = msg;
+  modal.classList.add("show");
+}
+
+function closeModalAndReset() {
+  modal.classList.remove("show");
+  resetGame();
+}
+
+// Reset
+function resetGame() {
+  board = Array.from({ length: BOARD_SIZE }, () => Array(BOARD_SIZE).fill(0));
+  currentPlayer = 1;
+  gameOver = false;
+  moveCount = 0;
+  timeP1 = 3 * 60 * 1000;
+  timeP2 = 4 * 60 * 1000;
+  moveCountEl.textContent = "0";
+  drawBoard();
+  updateUIState();
+  updateTimers();
+  startTurnTimer();
+}
+
+// Gọi reset khi cần
+document.querySelector(".btn-reset").addEventListener("click", resetGame);
+document.querySelector(".btn-modal").addEventListener("click", closeModalAndReset);
+
+// Bắt đầu game
+resetGame();
