@@ -10,7 +10,7 @@
     />
     <link
       rel="stylesheet"
-      href="{{ url_for('static', filename='style.css') }}"
+<link rel="stylesheet" href="static/style.css" />
     />
     <link
       rel="stylesheet"
@@ -29,14 +29,12 @@
         <div class="menu-options">
           <div class="menu-group">
             <h3><i class="fas fa-robot"></i> Chơi với AI</h3>
-            <a href="/game?mode=easy" class="btn-menu easy">
-              <span>Dễ</span>
-            </a>
-            <a href="/game?mode=medium" class="btn-menu medium">
-              <span>Trung Bình</span>
-            </a>
-            <a href="/game?mode=hard" class="btn-menu hard">
-              <span>Khó (Pro)</span>
+            <a href="templates/game.html?mode=easy" class="btn-menu easy"><span>Dễ</span></a>
+            <a href="templates/game.html?mode=medium" class="btn-menu medium"><span>Trung Bình</span></a>
+            <a href="templates/game.html?mode=hard" class="btn-menu hard"><span>Khó (Pro)</span></a>
+            <a href="templates/game.html?mode=pvp" class="btn-menu pvp">
+              <span>Solo 1 vs 1</span>
+              <small>Chơi trên cùng máy</small>
             </a>
           </div>
 
