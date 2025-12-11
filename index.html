@@ -1,22 +1,95 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="utf-8">
-    <title>Cờ Caro Online - Dungmeww</title>
-    <style>
-        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; background: linear-gradient(to bottom, #667eea, #764ba2); color: white; margin: 0; min-height: 100vh; }
-        h1 { font-size: 3em; margin: 20px; }
-        p { font-size: 1.3em; }
-        button { padding: 15px 40px; font-size: 24px; background: #ff4757; color: white; border: none; border-radius: 10px; cursor: pointer; margin: 30px; }
-        button:hover { background: #ff3742; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cờ Caro Pro - Trang Chủ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    /* Dán toàn bộ nội dung CSS từ file style.css của bạn vào đây (hoặc giữ link nếu file đã có trong static) */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+    }
+    .home-wrapper {
+      padding: 20px;
+      width: 100%;
+      max-width: 500px;
+    }
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+    }
+    .logo-icon { font-size: 4rem; margin-bottom: 10px; }
+    h1 { font-size: 3.5rem; font-weight: 800; margin: 10px 0; }
+    .highlight { color: #ffd700; }
+    .subtitle { font-size: 1.2rem; opacity: 0.9; margin-bottom: 30px; }
+    .menu-group h3 { margin: 25px 0 15px; font-size: 1.4rem; }
+    .btn-menu {
+      display: block;
+      width: 100%;
+      padding: 18px;
+      margin: 12px 0;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      text-decoration: none;
+      border-radius: 15px;
+      font-size: 1.3rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    .btn-menu:hover { transform: translateY(-5px); background: rgba(255,255,255,0.3); }
+    .easy { border-left: 6px solid #2ecc71; }
+    .medium { border-left: 6px solid #f39c12; }
+    .hard { border-left: 6px solid #e74c3c; }
+    .pvp { border-left: 6px solid #9b59b6; }
+    .menu-divider { margin: 30px 0; font-size: 1.4rem; opacity: 0.7; }
+    .home-footer { margin-top: 40px; opacity: 0.7; font-size: 0.9rem; }
+  </style>
 </head>
 <body>
-    <h1>✨ CỜ CARO ONLINE ✨</h1>
-    <p>Website đã lên thành công trên GitHub Pages!</p>
-    <p>Tác giả: Dungmeww</p>
-    <button onclick="alert('Chơi thôi nào! ♟️')">▶️ Bắt đầu chơi</button>
-    <br><br>
-    <p>Link: <a href="https://dungmeww.github.io/CoCaro" style="color:yellow">https://dungmeww.github.io/CoCaro</a></p>
+  <div class="home-wrapper">
+    <div class="glass-panel home-panel">
+      <header class="home-header">
+        <i class="fas fa-chess-board logo-icon"></i>
+        <h1>CỜ <span class="highlight">CARO</span></h1>
+        <p class="subtitle">Thử thách trí tuệ đỉnh cao</p>
+      </header>
+
+      <div class="menu-options">
+        <div class="menu-group">
+          <h3>Chơi với AI</h3>
+          <a href="templates/game.html?mode=easy" class="btn-menu easy"><span>Dễ</span></a>
+          <a href="templates/game.html?mode=medium" class="btn-menu medium"><span>Trung Bình</span></a>
+          <a href="templates/game.html?mode=hard" class="btn-menu hard"><span>Khó (Pro)</span></a>
+        </div>
+
+        <div class="menu-divider"><span>HOẶC</span></div>
+
+        <div class="menu-group">
+          <h3>Hai Người</h3>
+          <a href="templates/game.html?mode=pvp" class="btn-menu pvp">
+            <span>Solo 1 vs 1</span>
+            <small>Chơi trên cùng máy</small>
+          </a>
+        </div>
+      </div>
+
+      <footer class="home-footer">
+        <p>Designed by group 15 – Powered by GitHub Pages</p>
+      </footer>
+    </div>
+  </div>
 </body>
 </html>
